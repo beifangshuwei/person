@@ -1,0 +1,62 @@
+{
+  "code": 200,
+  "data": [
+    {
+      "path": "/home",
+      "name": "home",
+      "component": "/home/index",
+      "meta": {
+        "icon": "code-computer",
+        "title": "home",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    },
+    {
+      "path": "/download-page",
+      "name": "download-page",
+      "component": "/person/index",
+      "meta": {
+        "icon": "code-computer",
+        "title": "home",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    },
+    {
+      "path": "/refund-policy",
+      "name": "Refund Policy",
+      "component": "/policy/refund",
+      "meta": {
+        "icon": "code-computer",
+        "title": "home",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    },{
+      "path": "/privacy-policy",
+      "name": "Privacy Policy",
+      "component": "/policy/privacy",
+      "meta": {
+        "icon": "code-computer",
+        "title": "home",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    }
+
+  ],
+  "msg": "成功"
+}
