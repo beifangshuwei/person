@@ -2,15 +2,18 @@
   <div class="person  flex flex-col items-center color-white">
     <div class="sm:w-100% md:w-450 lg:w-650  text-center">
 
-      <h1 class="mb-20 fs-30">{{$t('person.title')}}</h1>
+      <h1 class="mb-20 fs-30">{{ $t("person.title") }}</h1>
       <div class="mb-20 fs-14">
-        {{$t('person.intro')}}
+        {{ $t("person.intro") }}
       </div>
-       <div class="position-relative">
-         <img class="w-100% blur-5" :src="ImgUrl">
-         <!--    <img class=" sm:w-100% md:w-450 lg:w-650"  src="@/assets/images/home/Or.webp">-->
-         <el-button class="position-absolute top-50% left-50% w-140 mt--25 ml--70 h-30 lg:h-50 fs-20" type="primary" @click="downLoadFn">{{$t('person.downloadButton')}}</el-button>
-       </div>
+      <div class="position-relative">
+        <img class="w-100% blur-5" :src="ImgUrl">
+        <!--    <img class=" sm:w-100% md:w-450 lg:w-650"  src="@/assets/images/home/Or.webp">-->
+        <el-button class="position-absolute top-50% left-50% w-140 mt--25 ml--70 h-30 lg:h-50 fs-20" type="primary"
+                   @click="downLoadFn" v-loading="downLoading"
+        >{{ $t("person.downloadButton") }}
+        </el-button>
+      </div>
 
     </div>
 
@@ -19,34 +22,44 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
-import { useI18n } from 'vue-i18n';
-import  axios  from "axios";
+import { useI18n } from "vue-i18n";
+import axios from "axios";
 // import { LanguageType } from '@/stores/interface';
-import router from '@/routers';
-import { useGlobalStore } from '@/stores/modules/global';
+import router from "@/routers";
+import { useGlobalStore } from "@/stores/modules/global";
 import Img from "@/components/Upload/Img.vue";
+import { ElNotification } from "element-plus";
 
 const globalStore = useGlobalStore();
 const i18n = useI18n();
 
-const ImgUrl = ref('');
+const ImgUrl = ref("");
+const downLoading = ref(false)
 
-onMounted(()=>{
-  ImgUrl.value= localStorage.getItem('imgUrl');
-})
+onMounted(() => {
+  ImgUrl.value = localStorage.getItem("imgUrl");
+});
 
 // 下载图片
-const downLoadFn=async ()=>{
-
-  axios({method:"get",url:ImgUrl.value.replace('https://img.photoes.ai/',"/downloadImage"),responseType:"blob"}).then(response=>{
+const downLoadFn = async () => {
+  if(downLoading.value) return  ElNotification({
+    title: '提示',
+    message: '正在下载中，请稍等',
+    type: 'warning',
+    duration: 2000
+  });
+  downLoading.value = true
+  // const imgUrl = window.location.host === "localhost:3002" ? ImgUrl.value.replace("https://ai.photoes.ai/", "/downloadImage") : ImgUrl.value;
+  axios({ method: "get", url: ImgUrl.value.replace("https://ai.photoes.ai/", "/downloadImage"), responseType: "blob" }).then(response => {
     const link = document.createElement("a");
     let blob = new Blob([response.data], { type: response.data.type });
     let url = URL.createObjectURL(blob);
     link.href = url;
-    link.download = 'image';
+    link.download = "image";
     link.click();
-    window.URL.revokeObjectURL(url)
-  })
+    downLoading.value=false
+    window.URL.revokeObjectURL(url);
+  });
   // const image = new Image();
   // image.setAttribute('crossOrigin', 'anonymous');
   // image.onload = () => {
@@ -63,22 +76,24 @@ const downLoadFn=async ()=>{
   //   a.dispatchEvent(event);
   // };
   // image.src = ImgUrl.value;
-}
+};
 
 </script>
 
 <style lang="scss">
-.person{
-  @media (max-width: 768px){
-    h1{
+.person {
+  @media (max-width: 768px) {
+    h1 {
       font-size: 24px !important;
     }
   }
-  h2{
+
+  h2 {
     font-size: 24px;
     margin-top: 20px;
   }
-  p{
+
+  p {
     font-size: 16px;
     margin-top: 10px;
     background-clip: text;
@@ -89,11 +104,13 @@ const downLoadFn=async ()=>{
     color: #ffffff !important;
 
   }
-  .el-form-item{
+
+  .el-form-item {
     margin-right: 10px !important;
   }
+
   .demo-form-inline .el-select {
-    --el-select-width:100px;
+    --el-select-width: 100px;
   }
 }
 

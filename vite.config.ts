@@ -47,7 +47,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       // proxy: createProxy(viteEnv.VITE_PROXY)
       proxy: {
         '/downloadImage': {
-          target: 'https://img.photoes.ai/', // 北京ip
+          target: 'https://ai.photoes.ai/', // 北京ip
           changeOrigin: true,
           rewrite: (path)=>path.replace(/^\/downloadImage/,"")
         }

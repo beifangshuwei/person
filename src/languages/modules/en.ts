@@ -67,5 +67,11 @@ export default {
       concent2: "Study background carefully. If it’s fake, it may include unusual distortions in shapes and lines, or have a torn appearance overall. Bleed-through occurs in bright colors that stand out from the background onto a fake person’s head.",
       concent3: "Another distinguishing feature of the NVIDIA “StyleGAN algorithm” is glossy “water splotches”."
     }
+  },
+  privacy:{
+    txt:'11221'
+  },
+  refund:{
+    txt:'2122'
   }
 };

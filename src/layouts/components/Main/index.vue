@@ -1,6 +1,6 @@
 <template>
   <el-main>
-    <router-view v-slot="{ Component, route }">
+    <router-view v-slot="{ Component, route }" :key="route.fullPath">
       <transition appear name="fade-transform" mode="out-in">
         <keep-alive :include="keepAliveName">
           <component :is="Component" v-if="isRouterShow" :key="route.fullPath" />
